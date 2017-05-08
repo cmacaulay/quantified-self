@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Quantified Self - Manage Foods</title>
-</head>
+  <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+  </head>
 <body>
 
+<div class="container">
+  <h1 class="center">Manage Foods</h1>
+<!-- When I visit foods.html,
+I can enter a name and calorie amount,
+and create a new food by clicking "Add Food" -->
+  <div class="container">
+
+    <form class="new-food">
+      <fieldset>
+        <label for="name-field">Name</label>
+        <input type="text" placeholder="Pistachios" id="name-field">
+        <label for="colorie-amount">Calorie Amount</label>
+        <input type="text" placeholder="10,000" id="name-field">
+        <input class="button-primary" type="submit" value="Add Food">
+      </fieldset>
+    </form>
+
+    <table class="food-options">
+      <thead class="header-row">
+        <tr>
+          <th>Name</th>
+          <th>Calories</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="foods">
+        <tr id="food">
+          <td>Cherry Tomato</td>
+          <td>27</td>
+          <td><i class="material-icons">remove_circle</i></td>
+        </tr>
+        <tr id="food">
+          <td>Corn Nuts</td>
+          <td>2500</td>
+          <td><i class="material-icons">remove_circle</i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
   <script src="main.bundle.js"></script>
 </body>
 </html>
