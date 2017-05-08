@@ -1029,6 +1029,10 @@ h1 {
   color: #af125a;
   font-family: 'Shadows Into Light Two', cursive;
 }
+h3 {
+  font-family: 'Shadows Into Light Two', cursive;
+  color: #002642;
+}
 .center {
   text-align: center;
 }
