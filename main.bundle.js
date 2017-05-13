@@ -46,15 +46,14 @@
 
 	const moment = __webpack_require__(1);
 	const $ = __webpack_require__(119);
-	const currentDate = moment();
+	let currentDate = moment();
 	const host = 'https://q-self-api.herokuapp.com/api';
 
 	$(document).ready(function () {
 	  setDate();
-	  fetchBreakfast(currentDate);
-	  fetchLunch(currentDate);
-	  fetchDinner(currentDate);
-	  fetchSnacks(currentDate);
+	  fetchDiaryInfo();
+	  $('#previous-day').on('click', previousDay);
+	  $('#next-day').on('click', nextDay);
 	});
 
 	function setDate() {
@@ -96,6 +95,26 @@
 
 	function fetchSnacks(date) {
 	  $.getJSON(createDiaryURL(date, 'snacks'), createFoodHandler('#snacks'));
+	}
+
+	function fetchDiaryInfo() {
+	  $('tbody.foods').html('');
+	  fetchBreakfast(currentDate);
+	  fetchLunch(currentDate);
+	  fetchDinner(currentDate);
+	  fetchSnacks(currentDate);
+	}
+
+	function previousDay() {
+	  currentDate = currentDate.subtract(1, "days");
+	  setDate();
+	  fetchDiaryInfo();
+	}
+
+	function nextDay() {
+	  currentDate = currentDate.add(1, "days");
+	  setDate();
+	  fetchDiaryInfo();
 	}
 
 /***/ }),
