@@ -17,10 +17,14 @@
       <div class="column column-20">
         <form class="new-food">
           <fieldset>
-            <label class="center" for="name-field">Name</label>
+            <label id="name-field" class="center" for="name-field">Name</label>
             <input type="text" placeholder="Pistachios" name="food-name">
-            <label class="center" for="colorie-amount">Calorie Amount</label>
+            <div class="error name-validation-error"></div>
+
+            <label id="calories-field" class="center" for="colorie-amount">Calorie Amount</label>
             <input type="text" placeholder="10,000" name="food-calories">
+            <div class="error calories-validation-error"></div>
+
             <div class="container">
               <input class="button button-small float-right" type="submit" value="Add Food">
             </div>
