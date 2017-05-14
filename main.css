@@ -1038,9 +1038,14 @@ h1 {
 .material-icons {
   color: #840032;
 }
+<<<<<<< HEAD
 .error {
   color: #af125a;
   font-size: 12px;
   padding-bottom: 5px;
   text-align: center;
+=======
+.bold-text {
+  font-weight: bold;
+>>>>>>> Add dynamic totals to diary
 }
