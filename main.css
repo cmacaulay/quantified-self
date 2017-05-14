@@ -1038,3 +1038,9 @@ h1 {
 .material-icons {
   color: #840032;
 }
+.error {
+  color: #af125a;
+  font-size: 12px;
+  padding-bottom: 5px;
+  text-align: center;
+}
