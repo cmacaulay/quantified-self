@@ -49,6 +49,13 @@
 	let currentDate = moment();
 	const host = 'https://q-self-api.herokuapp.com/api';
 
+	let goals = {
+	  breakfast: 400,
+	  lunch: 600,
+	  dinner: 800,
+	  snacks: 200
+	};
+
 	$(document).ready(function () {
 	  setDate();
 	  fetchDiaryInfo();
@@ -87,6 +94,7 @@
 	    totalMealCalories('#breakfast');
 	    dailyCalories();
 	    remainingDailyCalories();
+	    remainingMealCalories('breakfast');
 	  });
 	}
 
@@ -96,6 +104,7 @@
 	    totalMealCalories('#lunch');
 	    dailyCalories();
 	    remainingDailyCalories();
+	    remainingMealCalories('lunch');
 	  });
 	}
 
@@ -105,6 +114,7 @@
 	    totalMealCalories('#dinner');
 	    dailyCalories();
 	    remainingDailyCalories();
+	    remainingMealCalories('dinner');
 	  });
 	}
 
@@ -114,6 +124,7 @@
 	    totalMealCalories('#snacks');
 	    dailyCalories();
 	    remainingDailyCalories();
+	    remainingMealCalories('snacks');
 	  });
 	}
 
@@ -144,6 +155,7 @@
 	    total += parseInt($(foodCalorie).text());
 	  });
 	  $(`${mealID} tfoot .meal-calories`).text(total);
+	  return total;
 	}
 
 	function dailyCalories() {
@@ -152,14 +164,19 @@
 	  $dailyCalories.each(function (index, calories) {
 	    total += parseInt($(calories).text());
 	  });
-	  $('.calories-consumed').text(total);
+	  $('#calories-consumed').text(total);
 	  return total;
 	}
 
 	function remainingDailyCalories() {
 	  let goal = parseInt($('.goal-calories').text());
 	  let total = parseInt(dailyCalories());
-	  $('.calories-remaining').text(goal - total);
+	  $('#calories-remaining').text(goal - total);
+	}
+
+	function remainingMealCalories(meal) {
+	  let total = parseInt(totalMealCalories(`#${meal}`));
+	  $(`#${meal}-remaining-calories`).text(goals[meal] - total);
 	}
 
 /***/ }),
