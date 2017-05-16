@@ -61,6 +61,7 @@
 	  fetchDiaryInfo();
 	  $('#previous-day').on('click', previousDay);
 	  $('#next-day').on('click', nextDay);
+	  $('.add-food-to-meal').on('click', submitFoodToMeal);
 	});
 
 	function setDate() {
@@ -120,7 +121,7 @@
 
 	function fetchSnacks(date) {
 	  $.getJSON(createDiaryURL(date, 'snacks'), data => {
-	    createFoodHandler('#snacks');
+	    createFoodHandler('#snacks')(data);
 	    totalMealCalories('#snacks');
 	    dailyCalories();
 	    remainingDailyCalories();
@@ -134,6 +135,7 @@
 	  fetchLunch(currentDate);
 	  fetchDinner(currentDate);
 	  fetchSnacks(currentDate);
+	  fetchFoods();
 	}
 
 	function previousDay() {
@@ -189,6 +191,44 @@
 	  } else {
 	    document.getElementById(id).setAttribute("class", "red");
 	  };
+	}
+
+	function fetchFoods() {
+	  $.getJSON(`${host}/foods`, data => {
+	    data.forEach(food => {
+	      let $tr = $('<tr />');
+	      let $name = $('<td />').text(food.name);
+	      let $calories = $('<td />').text(food.calories).addClass('calories');
+	      let $check = $(`<td><input value="${food.id}" type="checkbox"> </td>`);
+	      $tr.append($check).append($name).append($calories);
+	      $(`#add-foods tbody`).append($tr);
+	    });
+	  });
+	}
+
+	function submitFoodToMeal() {
+	  event.preventDefault();
+	  $selected = $('input:checked');
+	  let foodIds = $selected.map(function (index, checked) {
+	    return $(checked).val();
+	  });
+
+	  let category = $(this).data('category');
+
+	  let meal = { meal: { foodIds: foodIds.toArray().join(','),
+	      category: category,
+	      date: currentDate.format('YYYY/MM/DD') }
+	  };
+
+	  let options = { breakfast: fetchBreakfast,
+	    lunch: fetchLunch,
+	    dinner: fetchDinner,
+	    snacks: fetchSnacks };
+
+	  $.post(`${host}/meals`, meal, () => {
+	    options[category](currentDate);
+	    $('input:checked').prop('checked', false);
+	  });
 	}
 
 /***/ }),
