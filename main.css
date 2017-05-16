@@ -1044,11 +1044,18 @@ h1 {
   font-size: 12px;
   padding-bottom: 5px;
   text-align: center;
-.bold-text {
-  font-weight: bold;
 }
 .error #myInput {
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   margin-bottom: 12px;
+}
+.bold-text {
+  font-weight: bold;
+}
+.red {
+  color: #840032;
+}
+.green {
+  color: #008000;
 }
