@@ -1028,6 +1028,7 @@ body {
 h1 {
   color: #af125a;
   font-family: 'Shadows Into Light Two', cursive;
+  padding-top: 25px;
 }
 .center {
   text-align: center;
@@ -1043,4 +1044,9 @@ h1 {
   font-size: 12px;
   padding-bottom: 5px;
   text-align: center;
+}
+.error #myInput {
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin-bottom: 12px;
 }
