@@ -172,11 +172,23 @@
 	  let goal = parseInt($('.goal-calories').text());
 	  let total = parseInt(dailyCalories());
 	  $('#calories-remaining').text(goal - total);
+	  calorieColorWarnings('calories-remaining', goal - total);
 	}
 
 	function remainingMealCalories(meal) {
 	  let total = parseInt(totalMealCalories(`#${meal}`));
-	  $(`#${meal}-remaining-calories`).text(goals[meal] - total);
+	  let difference = goals[meal] - total;
+
+	  $(`#${meal}-remaining-calories`).text(difference);
+	  calorieColorWarnings(`${meal}-remaining-calories`, difference);
+	};
+
+	function calorieColorWarnings(id, difference) {
+	  if (difference >= 0) {
+	    document.getElementById(id).setAttribute("class", "green");
+	  } else {
+	    document.getElementById(id).setAttribute("class", "red");
+	  };
 	}
 
 /***/ }),
