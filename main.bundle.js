@@ -47,14 +47,8 @@
 	const moment = __webpack_require__(1);
 	const $ = __webpack_require__(119);
 	let currentDate = moment();
+	const Calories = __webpack_require__(120);
 	const host = 'https://q-self-api.herokuapp.com/api';
-
-	let goals = {
-	  breakfast: 400,
-	  lunch: 600,
-	  dinner: 800,
-	  snacks: 200
-	};
 
 	$(document).ready(function () {
 	  setDate();
@@ -110,40 +104,40 @@
 	function fetchBreakfast(date) {
 	  $.getJSON(createDiaryURL(date, 'breakfast'), data => {
 	    createFoodHandler('#breakfast')(data);
-	    totalMealCalories('#breakfast');
-	    dailyCalories();
-	    remainingDailyCalories();
-	    remainingMealCalories('breakfast');
+	    Calories.totalMealCalories('#breakfast');
+	    Calories.dailyCalories();
+	    Calories.remainingDailyCalories();
+	    Calories.remainingMealCalories('breakfast');
 	  });
 	}
 
 	function fetchLunch(date) {
 	  $.getJSON(createDiaryURL(date, 'lunch'), data => {
 	    createFoodHandler('#lunch')(data);
-	    totalMealCalories('#lunch');
-	    dailyCalories();
-	    remainingDailyCalories();
-	    remainingMealCalories('lunch');
+	    Calories.totalMealCalories('#lunch');
+	    Calories.dailyCalories();
+	    Calories.remainingDailyCalories();
+	    Calories.remainingMealCalories('lunch');
 	  });
 	}
 
 	function fetchDinner(date) {
 	  $.getJSON(createDiaryURL(date, 'dinner'), data => {
 	    createFoodHandler('#dinner')(data);
-	    totalMealCalories('#dinner');
-	    dailyCalories();
-	    remainingDailyCalories();
-	    remainingMealCalories('dinner');
+	    Calories.totalMealCalories('#dinner');
+	    Calories.dailyCalories();
+	    Calories.remainingDailyCalories();
+	    Calories.remainingMealCalories('dinner');
 	  });
 	}
 
 	function fetchSnacks(date) {
 	  $.getJSON(createDiaryURL(date, 'snacks'), data => {
 	    createFoodHandler('#snacks')(data);
-	    totalMealCalories('#snacks');
-	    dailyCalories();
-	    remainingDailyCalories();
-	    remainingMealCalories('snacks');
+	    Calories.totalMealCalories('#snacks');
+	    Calories.dailyCalories();
+	    Calories.remainingDailyCalories();
+	    Calories.remainingMealCalories('snacks');
 	  });
 	}
 
@@ -168,48 +162,48 @@
 	  fetchDiaryInfo();
 	}
 
-	function totalMealCalories(mealID) {
-	  let $breakfastFoods = $(`${mealID} tbody tr .calories`);
-	  let total = 0;
-	  $breakfastFoods.each(function (index, foodCalorie) {
-	    total += parseInt($(foodCalorie).text());
-	  });
-	  $(`${mealID} tfoot .meal-calories`).text(total);
-	  return total;
-	}
-
-	function dailyCalories() {
-	  let $dailyCalories = $('.meal-calories');
-	  let total = 0;
-	  $dailyCalories.each(function (index, calories) {
-	    total += parseInt($(calories).text());
-	  });
-	  $('#calories-consumed').text(total);
-	  return total;
-	}
-
-	function remainingDailyCalories() {
-	  let goal = parseInt($('.goal-calories').text());
-	  let total = parseInt(dailyCalories());
-	  $('#calories-remaining').text(goal - total);
-	  calorieColorWarnings('calories-remaining', goal - total);
-	}
-
-	function remainingMealCalories(meal) {
-	  let total = parseInt(totalMealCalories(`#${meal}`));
-	  let difference = goals[meal] - total;
-
-	  $(`#${meal}-remaining-calories`).text(difference);
-	  calorieColorWarnings(`${meal}-remaining-calories`, difference);
-	};
-
-	function calorieColorWarnings(id, difference) {
-	  if (difference >= 0) {
-	    document.getElementById(id).setAttribute("class", "green");
-	  } else {
-	    document.getElementById(id).setAttribute("class", "red");
-	  };
-	}
+	// function totalMealCalories(mealID) {
+	//   let $breakfastFoods = $(`${mealID} tbody tr .calories`);
+	//   let total = 0;
+	//   $breakfastFoods.each(function(index, foodCalorie) {
+	//     total += parseInt($(foodCalorie).text());
+	//   })
+	//   $(`${mealID} tfoot .meal-calories`).text(total);
+	//   return total;
+	// }
+	//
+	// function dailyCalories() {
+	//   let $dailyCalories = $('.meal-calories');
+	//   let total = 0;
+	//   $dailyCalories.each(function(index, calories) {
+	//     total += parseInt($(calories).text());
+	//   })
+	//   $('#calories-consumed').text(total);
+	//   return total;
+	// }
+	//
+	// function remainingDailyCalories() {
+	//   let goal = parseInt($('.goal-calories').text());
+	//   let total = parseInt(dailyCalories());
+	//   $('#calories-remaining').text(goal - total);
+	//   calorieColorWarnings('calories-remaining', (goal - total))
+	// }
+	//
+	// function remainingMealCalories(meal) {
+	//   let total      = parseInt(totalMealCalories(`#${meal}`));
+	//   let difference = goals[meal] - total
+	//
+	//   $(`#${meal}-remaining-calories`).text(difference);
+	//   calorieColorWarnings(`${meal}-remaining-calories`, difference)
+	// };
+	//
+	// function calorieColorWarnings(id, difference) {
+	//   if (difference >= 0) {
+	//     document.getElementById(id).setAttribute("class", "green");
+	//   } else {
+	//     document.getElementById(id).setAttribute("class", "red");
+	//   };
+	// }
 
 	function fetchFoods() {
 	  $.getJSON(`${host}/foods`, data => {
@@ -26330,6 +26324,67 @@
 	return jQuery;
 	} );
 
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	const $ = __webpack_require__(119);
+
+	class Calories {
+
+	  static totalMealCalories(mealID) {
+	    let $breakfastFoods = $(`${mealID} tbody tr .calories`);
+	    let total = 0;
+	    $breakfastFoods.each(function (index, foodCalorie) {
+	      total += parseInt($(foodCalorie).text());
+	    });
+	    $(`${mealID} tfoot .meal-calories`).text(total);
+	    return total;
+	  }
+
+	  static dailyCalories() {
+	    let $dailyCalories = $('.meal-calories');
+	    let total = 0;
+	    $dailyCalories.each(function (index, calories) {
+	      total += parseInt($(calories).text());
+	    });
+	    $('#calories-consumed').text(total);
+	    return total;
+	  }
+
+	  static remainingDailyCalories() {
+	    let goal = parseInt($('.goal-calories').text());
+	    let total = parseInt(this.dailyCalories());
+	    $('#calories-remaining').text(goal - total);
+	    this.calorieColorWarnings('calories-remaining', goal - total);
+	  }
+
+	  static remainingMealCalories(meal) {
+	    let goals = {
+	      breakfast: 400,
+	      lunch: 600,
+	      dinner: 800,
+	      snacks: 200
+	    };
+
+	    let total = parseInt(this.totalMealCalories(`#${meal}`));
+	    let difference = goals[meal] - total;
+
+	    $(`#${meal}-remaining-calories`).text(difference);
+	    this.calorieColorWarnings(`${meal}-remaining-calories`, difference);
+	  }
+
+	  static calorieColorWarnings(id, difference) {
+	    if (difference >= 0) {
+	      document.getElementById(id).setAttribute("class", "green");
+	    } else {
+	      document.getElementById(id).setAttribute("class", "red");
+	    };
+	  }
+	}
+
+	module.exports = Calories;
 
 /***/ })
 /******/ ]);
