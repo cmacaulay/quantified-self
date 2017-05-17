@@ -61,7 +61,22 @@
 	  fetchDiaryInfo();
 	  $('#previous-day').on('click', previousDay);
 	  $('#next-day').on('click', nextDay);
+	  $('.food-options').on('click', '.delete', deleteMealFood);
 	});
+
+	function deleteMealFood() {
+	  let id = this.id;
+	  $.ajax({
+	    url: `${host}/meals/${id}`,
+	    method: 'DELETE'
+	  }).then(removeFoodRow(this)).fail(error => {
+	    console.error(error);
+	  });
+	}
+
+	function removeFoodRow(food) {
+	  $(food).parentsUntil("tbody").remove();
+	}
 
 	function setDate() {
 	  $('#date').text(currentDate.format('MMMM Do YYYY'));
@@ -73,7 +88,7 @@
 	      let $tr = $('<tr />');
 	      let $name = $('<td />').text(food.food_name);
 	      let $calories = $('<td />').text(food.calories).addClass('calories');
-	      let $deleteIcon = $('<td />').html('<i class="material-icons">remove_circle</i>');
+	      let $deleteIcon = $(`<td class="delete" id=${food.id}/>`).html(`<i class="material-icons">remove_circle</i>`);
 	      $tr.append($name).append($calories).append($deleteIcon);
 	      $(`${selector} tbody`).append($tr);
 	    });
