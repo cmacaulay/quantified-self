@@ -68,13 +68,15 @@
 
 	function deleteMealFood() {
 	  let id = this.id;
+	  let table = $(this).parents("table");
+	  let mealId = table[0].id;
 	  $.ajax({
 	    url: `${host}/meals/${id}`,
 	    method: 'DELETE'
-	  }).then(removeFoodRow(this)).fail(error => {
+	  }).then(removeFoodRow(this)).then(remainingMealCalories(mealId)).then(remainingDailyCalories).fail(error => {
 	    console.error(error);
 	  });
-	}
+	};
 
 	function removeFoodRow(food) {
 	  $(food).parentsUntil("tbody").remove();
