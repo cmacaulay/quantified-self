@@ -143,6 +143,31 @@
             </tbody>
           </table>
         </div>
+
+        <div class="column column-50">
+          <h4 class="center">Foods</h4 class="center">
+            <a class="button button-primary" href="https://cmacaulay.github.io/quantified-self/foods.html">Add New Food</a>
+            <input type="text" id="diary-food-search" placeholder="Search By Name">
+          <form id="add-foods-to-meals">
+          <table id="add-foods">
+            <thead>
+              <tr class="header-row">
+                <th>Selected</th>
+                <th>Name</th>
+                <th>Calories</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="foods">
+            </tbody>
+          </table>
+          <h5>Add Selected to Meal</h5>
+          <input type="submit" class="button button-primary add-food-to-meal" data-category="breakfast" value="Breakfast">
+          <input type="submit" class="button button-primary add-food-to-meal" data-category="lunch" value="Lunch">
+          <input type="submit" class="button button-primary add-food-to-meal" data-category="snacks" value="Snacks">
+          <input type="submit" class="button button-primary add-food-to-meal" data-category="dinner" value="Dinner">
+          </form>
+        </div>
       </div>
     </div>
 
