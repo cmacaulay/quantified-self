@@ -162,52 +162,6 @@
 	  fetchDiaryInfo();
 	}
 
-<<<<<<< HEAD
-	// function totalMealCalories(mealID) {
-	//   let $breakfastFoods = $(`${mealID} tbody tr .calories`);
-	//   let total = 0;
-	//   $breakfastFoods.each(function(index, foodCalorie) {
-	//     total += parseInt($(foodCalorie).text());
-	//   })
-	//   $(`${mealID} tfoot .meal-calories`).text(total);
-	//   return total;
-	// }
-	//
-	// function dailyCalories() {
-	//   let $dailyCalories = $('.meal-calories');
-	//   let total = 0;
-	//   $dailyCalories.each(function(index, calories) {
-	//     total += parseInt($(calories).text());
-	//   })
-	//   $('#calories-consumed').text(total);
-	//   return total;
-	// }
-	//
-	// function remainingDailyCalories() {
-	//   let goal = parseInt($('.goal-calories').text());
-	//   let total = parseInt(dailyCalories());
-	//   $('#calories-remaining').text(goal - total);
-	//   calorieColorWarnings('calories-remaining', (goal - total))
-	// }
-	//
-	// function remainingMealCalories(meal) {
-	//   let total      = parseInt(totalMealCalories(`#${meal}`));
-	//   let difference = goals[meal] - total
-	//
-	//   $(`#${meal}-remaining-calories`).text(difference);
-	//   calorieColorWarnings(`${meal}-remaining-calories`, difference)
-	// };
-	//
-	// function calorieColorWarnings(id, difference) {
-	//   if (difference >= 0) {
-	//     document.getElementById(id).setAttribute("class", "green");
-	//   } else {
-	//     document.getElementById(id).setAttribute("class", "red");
-	//   };
-	// }
-
-=======
->>>>>>> Extract calories into class
 	function fetchFoods() {
 	  $.getJSON(`${host}/foods`, data => {
 	    data.forEach(food => {
@@ -26380,9 +26334,9 @@
 
 	  static calorieColorWarnings(id, difference) {
 	    if (difference >= 0) {
-	      document.getElementById(id).setAttribute("class", "green");
+	      $(`#${id}`).attr("class", "green");
 	    } else {
-	      document.getElementById(id).setAttribute("class", "red");
+	      $(`#${id}`).attr("class", "red");
 	    };
 	  }
 	}
