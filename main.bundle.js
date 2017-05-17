@@ -62,6 +62,7 @@
 	  $('#previous-day').on('click', previousDay);
 	  $('#next-day').on('click', nextDay);
 	  $('.add-food-to-meal').on('click', submitFoodToMeal);
+	  $('#diary-food-search').on('keyup', searchFoods);
 	});
 
 	function setDate() {
@@ -197,7 +198,7 @@
 	  $.getJSON(`${host}/foods`, data => {
 	    data.forEach(food => {
 	      let $tr = $('<tr />');
-	      let $name = $('<td />').text(food.name);
+	      let $name = $('<td />').text(food.name).addClass('food-name');
 	      let $calories = $('<td />').text(food.calories).addClass('calories');
 	      let $check = $(`<td><input value="${food.id}" type="checkbox"> </td>`);
 	      $tr.append($check).append($name).append($calories);
@@ -208,7 +209,7 @@
 
 	function submitFoodToMeal() {
 	  event.preventDefault();
-	  $selected = $('input:checked');
+	  let $selected = $('input:checked');
 	  let foodIds = $selected.map(function (index, checked) {
 	    return $(checked).val();
 	  });
@@ -229,6 +230,13 @@
 	    options[category](currentDate);
 	    $('input:checked').prop('checked', false);
 	  });
+	}
+
+	function searchFoods() {
+	  let $foodNames = $('#add-foods .foods');
+	  let search = $('#diary-food-search').val().toLowerCase();
+	  $foodNames.find(`tr:contains(${search})`).show();
+	  $foodNames.find(`tr:not(:contains(${search}))`).hide();
 	}
 
 /***/ }),
