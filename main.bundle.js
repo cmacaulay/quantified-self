@@ -67,7 +67,7 @@
 	  $.ajax({
 	    url: `${host}/meals/${id}`,
 	    method: 'DELETE'
-	  }).then(removeFoodRow(this)).then(remainingMealCalories(mealId)).then(remainingDailyCalories).fail(error => {
+	  }).then(removeFoodRow(this)).then(Calories.remainingMealCalories(mealId)).then(Calories.remainingDailyCalories()).fail(error => {
 	    console.error(error);
 	  });
 	};
@@ -162,6 +162,7 @@
 	  fetchDiaryInfo();
 	}
 
+<<<<<<< HEAD
 	// function totalMealCalories(mealID) {
 	//   let $breakfastFoods = $(`${mealID} tbody tr .calories`);
 	//   let total = 0;
@@ -205,6 +206,8 @@
 	//   };
 	// }
 
+=======
+>>>>>>> Extract calories into class
 	function fetchFoods() {
 	  $.getJSON(`${host}/foods`, data => {
 	    data.forEach(food => {
