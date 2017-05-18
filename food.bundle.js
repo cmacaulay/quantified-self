@@ -44,9 +44,8 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	const $ = __webpack_require__(1);
 	const host = 'https://q-self-api.herokuapp.com/api/foods';
-	const Validations = __webpack_require__(1);
-	const $ = __webpack_require__(2);
 
 	$(document).ready(function () {
 	  fetchFoods();
@@ -95,6 +94,29 @@
 	  $(".food-options tbody").prepend(foodRow);
 	};
 
+	function handleFieldErrors(newFood) {
+	  clearErrors();
+	  checkForName(newFood['name']);
+	  checkForCalories(newFood['calories']);
+	};
+
+	function checkForName(name) {
+	  if (!name) {
+	    $('.name-validation-error').html('Please enter a food name');
+	  };
+	};
+
+	function checkForCalories(calories) {
+	  if (!calories) {
+	    $('.calories-validation-error').html('Please enter a calorie amount');
+	  };
+	};
+
+	function clearErrors() {
+	  $('.name-validation-error').empty();
+	  $('.calories-validation-error').empty();
+	};
+
 	function handleNewFood() {
 	  event.preventDefault();
 	  $newFood = new Object();
@@ -102,7 +124,7 @@
 	  $newFood['name'] = $("input[name=food-name]").val();
 	  $newFood['calories'] = $("input[name=food-calories]").val();
 
-	  Validations.handleFieldErrors($newFood);
+	  handleFieldErrors($newFood);
 
 	  const finalForm = { food: $newFood };
 	  $.ajax({
@@ -225,38 +247,6 @@
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-	class Validations {
-
-	  static handleFieldErrors(newFood) {
-	    this.clearErrors();
-	    this.checkForName(newFood['name']);
-	    this.checkForCalories(newFood['calories']);
-	  }
-
-	  static checkForName(name) {
-	    if (!name) {
-	      $('.name-validation-error').html('Please enter a food name');
-	    };
-	  }
-
-	  static checkForCalories(calories) {
-	    if (!calories) {
-	      $('.calories-validation-error').html('Please enter a calorie amount');
-	    };
-	  }
-
-	  static clearErrors() {
-	    $('.name-validation-error').empty();
-	    $('.calories-validation-error').empty();
-	  }
-	}
-
-	module.exports = Validations;
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
